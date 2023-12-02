@@ -169,13 +169,13 @@ module.exports = async (req, res) => {
       password: 'vs321#@!'
     }
     // testing
-    await openSite(parameters, page);
+    //await openSite(parameters, page);
 
 
     //take a screenshot
-    // const file = await page.screenshot({
-    //   type: "png",
-    // });
+    const file = await page.screenshot({
+      type: "png",
+    });
 
     // close the browser
     await browser.close();
