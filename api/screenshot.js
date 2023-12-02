@@ -40,7 +40,9 @@ async function getOptions(isDev) {
     options = {
       args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
       defaultViewport: chrome.defaultViewport,
-      executablePath: await chrome.executablePath,
+      executablePath: await chrome.executablePath(
+      `https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`
+    ),
       headless: chrome.headless,
       ignoreHTTPSErrors: true,
     };
