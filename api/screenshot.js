@@ -46,7 +46,11 @@ async function getOptions(isDev) {
   return options;
 }
 
-openSite = async(parameters, page) => {
+async function logError(err) {
+    console.log('❌ Ocorreu algum erro >', `[${err}]`);
+}
+
+async function openSite(parameters, page) {
 
     console.log('👉🏻 Abrindo site');
 
