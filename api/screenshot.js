@@ -169,22 +169,22 @@ module.exports = async (req, res) => {
       password: 'vs321#@!'
     }
     // testing
-    //await openSite(parameters, page);
-
-
+    // const result = await openSite(parameters, page);
+    
+    
     //take a screenshot
     const file = await page.screenshot({
       type: "png",
     });
-
+    
+    res.statusCode = 200;
+    res.end(file);
     // close the browser
     await browser.close();
 
-    res.statusCode = 200;
-    res.setHeader("Content-Type", `image/png`);
+    // res.setHeader("Content-Type", `image/png`);
 
     // return the file!
-    res.end(file);
   } catch (e) {
     res.statusCode = 500;
     res.json({
