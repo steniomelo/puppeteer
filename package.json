@@ -1,14 +1,17 @@
 {
   "name": "puppeteer",
   "version": "1.0.0",
-  "description": "A small project to demo how to use Puppeteer to take screenshots of a browser window",
+  "description": "A small project to demo how to use Puppeteer to take screenshots of a browser window forked from whitep4nth3r",
   "main": "index.js",
-  "author": "whitep4nth3r",
+  "author": "stênio",
   "license": "MIT",
   "private": false,
+  "engines": {
+    "node": "^18"
+  },
   "dependencies": {
-    "chrome-aws-lambda": "^7.0.0",
-    "puppeteer": "^7.1.0",
-    "puppeteer-core": "^7.1.0"
+    "@sparticuz/chromium-min": "^115.0.0",
+    "puppeteer": "^10.1.0",
+    "puppeteer-core": "^21.0.2"
   }
 }
