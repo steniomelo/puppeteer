@@ -46,6 +46,81 @@ async function getOptions(isDev) {
   return options;
 }
 
+openSite = async(parameters, page) => {
+
+    console.log('👉🏻 Abrindo site');
+
+    const userLoginField = '#user_login';
+    const userPassField = '#user_pass';
+    const submitButton = '#wp-submit';
+
+  try {
+
+    try {
+      await page.goto(parameters.url);
+      await page.waitForSelector(userLoginField, { visible: true });
+      await page.waitForSelector(userPassField, { visible: true });
+
+    } catch (error) {
+      await logError(`❌ Não conseguiu acessar a URL: ${error}`);
+
+      try {
+        console.log('👉🏻Tentando url com WP-ADMIN');
+    
+        if (!parameters.url.includes('wp-admin')) {
+          if (parameters.url.slice(-1) === '/') {
+            parameters.url = parameters.url + 'wp-admin';
+          } else {
+            parameters.url = parameters.url + '/wp-admin';
+          }
+        }
+                    
+        await page.goto(parameters.url);
+        await page.waitForSelector(userLoginField, { visible: true });
+        await page.waitForSelector(userPassField, { visible: true });
+    
+      } catch (error) {
+        await logError(`❌ Não conseguiu acessar a URL com WP-Admin`);
+                
+    
+        console.log('👉🏻 Ativação não realizada');
+                
+        await browser.close();
+        throw new Error('❌ Não conseguiu acessar a URL com WP-Admin');
+
+      }
+            
+    }
+
+        
+    try {
+      await page.type(userLoginField, parameters.user);
+      await page.type(userPassField, parameters.password);
+      await page.click(submitButton);
+
+      let loginError = await page.$('#login_error');
+
+      if (loginError) {
+                
+        console.log('👉🏻 Ativação não realizada');
+                
+        await browser.close();
+
+      } else {
+        console.log('👉🏻 Fez login');
+      }
+
+    } catch (e) {
+      console.log('error', e);
+    }
+
+        
+  } catch (e) {
+    console.log('error', e);
+  }
+    
+}
+
 module.exports = async (req, res) => {
   const pageToScreenshot = req.query.page;
 
@@ -80,10 +155,19 @@ module.exports = async (req, res) => {
     // tell the page to visit the url
     await page.goto(pageToScreenshot);
 
+    const parameters = {
+      url: pageToScreenshot,
+      user: 'voltsstudio',
+      password: 'vs321#@!'
+    }
+    // testing
+    await openSite(parameters, page);
+
+
     // take a screenshot
-    const file = await page.screenshot({
-      type: "png",
-    });
+    // const file = await page.screenshot({
+    //   type: "png",
+    // });
 
     // close the browser
     await browser.close();
