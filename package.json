@@ -1,5 +1,5 @@
 {
-  "name": "puppeteer-demo",
+  "name": "puppeteer",
   "version": "1.0.0",
   "description": "A small project to demo how to use Puppeteer to take screenshots of a browser window",
   "main": "index.js",
